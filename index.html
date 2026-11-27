@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="hi">
+<!DOCTYPE html><html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +6,9 @@
 <meta name="description" content="JAYDEB BARUA MEDIA PLAYER - Play audio and video files on your device.">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
-<title>JAYDEB BARUA MEDIA PLAYER</title>
-<style>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="./icon-192.png"><title>JAYDEB BARUA MEDIA PLAYER</title><style>
 :root{--bg:#0b1220;--panel:#151f32;--text:#f4f7fb;--muted:#aab6c8;--accent:#22c5a5}
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;background:linear-gradient(145deg,#0b1220,#17263c);font-family:Arial,sans-serif;color:var(--text);padding:22px}
@@ -39,75 +35,97 @@ li span{flex:1;overflow-wrap:anywhere}
 li button{padding:8px 11px}
 .note{color:var(--muted);font-size:13px;line-height:1.5;margin-top:16px}
 @media(max-width:520px){body{padding:14px}.card{padding:14px}.screen{min-height:170px}}
-</style>
-</head>
-<body>
+</style></head><body>
 <div class="app">
-<header><h1>🎵 JAYDEB BARUA MEDIA PLAYER</h1><p>Apne mobile ya computer se audio aur video chalayein</p></header>
-<main class="card">
-  <div class="screen" id="screen">
-    <div class="placeholder" id="placeholder"><div class="icon">▶️</div><div>Media file chunne ke liye neeche button dabayein</div></div>
-    <video id="video" controls playsinline hidden></video>
-  </div>
-  <div class="now" id="now">Abhi koi file select nahi hai</div>
-  <audio id="audio" controls hidden></audio>
-  <div class="actions">
-    <label class="pick" for="files">＋ Media file chunein</label>
-    <input id="files" type="file" accept="audio/*,video/*" multiple>
-    <button class="secondary" id="prev">⏮ Pichhla</button>
-    <button class="secondary" id="next">Agla ⏭</button>
-    <button class="secondary" id="clear">Saaf karein</button>
-  </div>
-  <h3 class="list-title">📂 Playlist</h3>
-  <ul id="playlist"><li id="empty">Abhi playlist khaali hai.</li></ul>
-  <p class="note" style="text-align:center;margin-top:20px"><strong>Created by Jaydeb Barua</strong></p>
-  <p class="note">Yeh player aapke device ki select ki hui files chalata hai. Files internet par upload nahi hoti. Browser aur file format ke hisaab se playback support alag ho sakta hai.</p>
-</main>
+<header>
+<h1>🎵 JAYDEB BARUA MEDIA PLAYER</h1>
+<p>Apne mobile ya computer se audio aur video chalayein</p>
+</header><main class="card">
+<div class="screen" id="screen">
+<div class="placeholder" id="placeholder">
+<div class="icon">▶️</div>
+<div>Media file chunne ke liye neeche button dabayein</div>
 </div>
-<script>
+<video id="video" controls playsinline hidden></video>
+</div><div class="now" id="now">Abhi koi file select nahi hai</div>
+<audio id="audio" controls hidden></audio><div class="actions">
+<label class="pick" for="files">＋ Media file chunein</label>
+<input id="files" type="file" accept="audio/*,video/*" multiple>
+<button class="secondary" id="prev">⏮ Pichhla</button>
+<button class="secondary" id="next">Agla ⏭</button>
+<button class="secondary" id="clear">Saaf karein</button>
+</div><h3 class="list-title">📂 Playlist</h3>
+<ul id="playlist">
+<li id="empty">Abhi playlist khaali hai.</li>
+</ul><p class="note" style="text-align:center;margin-top:20px">
+<strong>Created by Jaydeb Barua</strong>
+</p><p class="note">
+Yeh player aapke device ki select ki hui files chalata hai. Files internet par upload nahi hoti. Browser aur file format ke hisaab se playback support alag ho sakta hai.
+</p>
+</main>
+</div><script>
 const picker=document.getElementById('files'),audio=document.getElementById('audio'),video=document.getElementById('video');
 const placeholder=document.getElementById('placeholder'),now=document.getElementById('now'),list=document.getElementById('playlist');
 let items=[],index=-1,currentURL=null;
-function release(){if(currentURL){URL.revokeObjectURL(currentURL);currentURL=null}}
+
+function release(){
+if(currentURL){URL.revokeObjectURL(currentURL);currentURL=null}
+}
+
 function play(i){
- if(i<0||i>=items.length)return;
- index=i;release();
- const file=items[index],url=URL.createObjectURL(file);currentURL=url;
- const isVideo=file.type.startsWith('video/');
- audio.pause();video.pause();audio.removeAttribute('src');video.removeAttribute('src');
- audio.hidden=isVideo;video.hidden=!isVideo;placeholder.hidden=true;
- const player=isVideo?video:audio;player.src=url;player.load();
- now.textContent='▶ '+file.name;
- player.play().catch(()=>{});
- render();
+if(i<0||i>=items.length)return;
+index=i;release();
+const file=items[index],url=URL.createObjectURL(file);currentURL=url;
+const isVideo=file.type.startsWith('video/');
+audio.pause();video.pause();audio.removeAttribute('src');video.removeAttribute('src');
+audio.hidden=isVideo;video.hidden=!isVideo;placeholder.hidden=true;
+const player=isVideo?video:audio;
+player.src=url;player.load();
+now.textContent='▶ '+file.name;
+player.play().catch(()=>{});
+render();
 }
+
 function render(){
- list.innerHTML='';
- if(!items.length){list.innerHTML='<li>Abhi playlist khaali hai.</li>';return}
- items.forEach((f,i)=>{
-  const li=document.createElement('li'),name=document.createElement('span'),btn=document.createElement('button');
-  name.textContent=(i===index?'▶ ':'')+f.name;btn.textContent='Play';btn.className='secondary';
-  btn.onclick=()=>play(i);li.append(name,btn);list.append(li);
- });
-}
-picker.addEventListener('change',()=>{
- const added=Array.from(picker.files||[]);items.push(...added);picker.value='';render();
- if(index===-1&&items.length)play(0);
+list.innerHTML='';
+if(!items.length){list.innerHTML='<li>Abhi playlist khaali hai.</li>';return}
+items.forEach((f,i)=>{
+const li=document.createElement('li'),name=document.createElement('span'),btn=document.createElement('button');
+name.textContent=(i===index?'▶ ':'')+f.name;
+btn.textContent='Play';btn.className='secondary';
+btn.onclick=()=>play(i);
+li.append(name,btn);list.append(li);
 });
+}
+
+picker.addEventListener('change',()=>{
+const added=Array.from(picker.files||[]);
+items.push(...added);picker.value='';render();
+if(index===-1&&items.length)play(0);
+});
+
 document.getElementById('prev').onclick=()=>{if(items.length)play((index-1+items.length)%items.length)};
 document.getElementById('next').onclick=()=>{if(items.length)play((index+1)%items.length)};
+
 document.getElementById('clear').onclick=()=>{
- audio.pause();video.pause();release();items=[];index=-1;
- audio.hidden=true;video.hidden=true;audio.removeAttribute('src');video.removeAttribute('src');
- placeholder.hidden=false;now.textContent='Abhi koi file select nahi hai';render();
+audio.pause();video.pause();release();items=[];index=-1;
+audio.hidden=true;video.hidden=true;
+audio.removeAttribute('src');video.removeAttribute('src');
+placeholder.hidden=false;
+now.textContent='Abhi koi file select nahi hai';
+render();
 };
-[audio,video].forEach(p=>p.addEventListener('ended',()=>{if(index<items.length-1)play(index+1)}));
+
+[audio,video].forEach(p=>p.addEventListener('ended',()=>{
+if(index<items.length-1)play(index+1);
+}));
+
 window.addEventListener('beforeunload',release);
-</script>
-<script>
+</script><script>
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(console.error));
+window.addEventListener("load", () => {
+navigator.serviceWorker.register("./sw.js").catch(console.error);
+});
 }
-</script>
-</body>
+</script></body>
 </html>
