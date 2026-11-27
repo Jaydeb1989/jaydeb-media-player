@@ -1,24 +1,20 @@
 {
-  "id": "./",
-  "name": "JAYDEB BARUA MEDIA PLAYER",
-  "short_name": "Jaydeb Player",
-  "description": "Audio and video player by Jaydeb Barua",
-  "start_url": "./",
-  "scope": "./",
-  "display": "standalone",
-  "orientation": "any",
-  "background_color": "#0b1220",
-  "theme_color": "#101827",
-  "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+"id": "./",
+"name": "JAYDEB BARUA MEDIA PLAYER",
+"short_name": "Jaydeb Player",
+"description": "Audio and video player by Jaydeb Barua",
+"start_url": "./",
+"scope": "./",
+"display": "standalone",
+"orientation": "any",
+"background_color": "#0b1220",
+"theme_color": "#101827",
+"icons": [
+{
+"src": "./icon-512.png",
+"sizes": "512x512",
+"type": "image/png",
+"purpose": "any"
+}
+]
 }
